@@ -1,6 +1,8 @@
 Class = require 'class'
 
 -- add require '' files here
+require 'Parallax'
+require 'Bird'
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
@@ -25,19 +27,16 @@ sounds = {
 ]]
 
 function love.keypressed(key)
-
+    love.keyboard.keysPressed[key] = true
 end
 
-function love.mousepressed(key)
-
+function love.mousepressed(x, y, button)
+    love.mouse.buttonsPressed[button] = true
 end
 
 function love.load()
-    -- set love's default to "nearest-neighbour" which means there will be no filtering of pixels for a better 2D look
     love.graphics.setDefaultFilter('nearest', 'nearest')
-    -- set the title of our application window
     love.window.setTitle('Flappy')
-    -- set random seed for random number
     math.randomseed(os.time())
     -- set window properties
     love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT, {
@@ -47,12 +46,21 @@ function love.load()
     })
 
     love.graphics.setFont(fonts.retroS)
+    love.keyboard.keysPressed = {}
+    love.mouse.buttonsPressed = {}
+
+    parallax = Parallax()
+    bird = Bird()
 end
 
 function love.update(dt)
+    parallax:update(dt)
 
+    love.keyboard.keysPressed = {}
+    love.mouse.buttonsPressed = {}
 end
 
 function love.draw()
-
+    parallax:render()
+    bird:render()
 end
