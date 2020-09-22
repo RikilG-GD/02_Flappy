@@ -3,6 +3,15 @@ Class = require 'class'
 -- add require '' files here
 require 'Parallax'
 require 'Bird'
+require 'Pipe'
+require 'PipePair'
+
+require 'StateMachine'
+require 'states/PlayState'
+require 'states/PauseState'
+require 'states/ScoreState'
+require 'states/CountdownState'
+require 'states/TitleScreenState'
 
 WINDOW_WIDTH = 1280
 WINDOW_HEIGHT = 720
@@ -10,7 +19,7 @@ WINDOW_HEIGHT = 720
 fonts = {
     ['retroS'] = love.graphics.newFont('assets/fonts/Retro_Gaming.ttf', 16),
     ['retroL'] = love.graphics.newFont('assets/fonts/Retro_Gaming.ttf', 26),
-    ['retroXL'] = love.graphics.newFont('assets/fonts/Retro_Gaming.ttf', 42)
+    ['retroXL'] = love.graphics.newFont('assets/fonts/Retro_Gaming.ttf', 50)
 }
 
 --[[
@@ -26,6 +35,14 @@ sounds = {
 }
 ]]
 
+gStateMachine = StateMachine{
+    ['play'] = PlayState(),
+    ['pause'] = PauseState(),
+    ['title'] = TitleScreenState(),
+    ['countdown'] = CountdownState(),
+    ['score'] = ScoreState(),
+}
+
 function love.keypressed(key)
     love.keyboard.keysPressed[key] = true
 end
@@ -38,7 +55,6 @@ function love.load()
     love.graphics.setDefaultFilter('nearest', 'nearest')
     love.window.setTitle('Flappy')
     math.randomseed(os.time())
-    -- set window properties
     love.window.setMode(WINDOW_WIDTH, WINDOW_HEIGHT, {
         fullscreen = false,
         resizable = false,
@@ -48,13 +64,13 @@ function love.load()
     love.graphics.setFont(fonts.retroS)
     love.keyboard.keysPressed = {}
     love.mouse.buttonsPressed = {}
-
+    gStateMachine:changeState('title')
     parallax = Parallax()
-    bird = Bird()
 end
 
 function love.update(dt)
     parallax:update(dt)
+    gStateMachine:update(dt)
 
     love.keyboard.keysPressed = {}
     love.mouse.buttonsPressed = {}
@@ -62,5 +78,5 @@ end
 
 function love.draw()
     parallax:render()
-    bird:render()
+    gStateMachine:render()
 end
