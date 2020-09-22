@@ -1,5 +1,7 @@
 # Flappy
 
+![game_demo](screenshots/demo.gif)
+
 A clone of the popular flappy-bird game.
 
 ## Steps to Play!
@@ -21,6 +23,11 @@ Windows users, please make sure that you have Love2D installation in `PATH` to r
 (Will be populated at a later time)
 
 ## Credits and Acknowledgements
+
+Music Credits
+
+- [jfxr](https://jfxr.frozenfractal.com/#) for death and jump sound
+- [fesliyanstudios](https://www.fesliyanstudios.com) for the 8-bit background music
 
 For the Idea and game structure
 
