@@ -22,18 +22,11 @@ fonts = {
     ['retroXL'] = love.graphics.newFont('assets/fonts/Retro_Gaming.ttf', 50)
 }
 
---[[
 sounds = {
-    ['paddleHit'] = love.audio.newSource('assets/sounds/PaddleHit.wav', 'static'),
-    ['wallHit'] = love.audio.newSource('assets/sounds/WallHit.wav', 'static'),
     ['background'] = love.audio.newSource('assets/sounds/Background.mp3', 'static'),
+    ['jump'] = love.audio.newSource('assets/sounds/Jump.wav', 'static'),
     ['death'] = love.audio.newSource('assets/sounds/Death.wav', 'static'),
-    ['powerUp'] = love.audio.newSource('assets/sounds/PowerUp.wav', 'static'),
-    ['gameOver'] = love.audio.newSource('assets/sounds/GameOver.wav', 'static'),
-    ['menuOpen'] = love.audio.newSource('assets/sounds/MenuOpen.wav', 'static'),
-    ['menuOption'] = love.audio.newSource('assets/sounds/MenuOption.wav', 'static')
 }
-]]
 
 gStateMachine = StateMachine{
     ['play'] = PlayState(),
@@ -64,6 +57,8 @@ function love.load()
     love.graphics.setFont(fonts.retroS)
     love.keyboard.keysPressed = {}
     love.mouse.buttonsPressed = {}
+    sounds['background']:setLooping(true)
+    sounds['background']:play()
     gStateMachine:changeState('title')
     parallax = Parallax()
 end

@@ -34,6 +34,7 @@ function Bird:update(dt)
     self.y = self.y + self.dy
 
     if love.keyboard.keysPressed['up'] or love.keyboard.keysPressed['space'] or love.keyboard.keysPressed['enter'] or love.keyboard.keysPressed['return'] then
+        sounds['jump']:play()
         self.dy = -8
     end
 end

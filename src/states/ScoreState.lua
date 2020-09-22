@@ -1,6 +1,7 @@
 ScoreState = Class{}
 
 function ScoreState:enter(score)
+    sounds['death']:play()
     parallax:pause()
     self.score = 'Score: ' .. tostring(score)
     self.scoreX = WINDOW_WIDTH/2 - fonts['retroXL']:getWidth(self.score)/2
